@@ -23,8 +23,7 @@ class BahdanauAttention(nn.Module):
 
         extendded_query = query.unsqueeze(1)
         alignment = self.alignment_layer(F.tanh(extendded_query + keys))
-
-        return alignment.squezee(2)
+        return alignment.squeeze(2)
 
     def forward(self, query, keys):
         alignment_score = self.alignment_score(query, keys)
@@ -34,4 +33,4 @@ class BahdanauAttention(nn.Module):
 
         total_context = context.sum(1)
         
-        return total_context
+        return total_context, alignment_score
